@@ -8,13 +8,8 @@ public class FirstRepeatingElement {
         list.forEach(e->{
             map.put(e, Collections.frequency(list,e));
         });
-        Set<Integer> set = new LinkedHashSet<>();
-        map.forEach((k,v)->{
-            if(v == 2){
-                set.add(k);
-            }
-        });
-        return !set.stream().toList().isEmpty() ? set.stream().toList().getFirst(): -1;
+        Optional<Map.Entry<Integer,Integer>> firstRepeatingElement = map.entrySet().stream().filter(e->e.getValue() > 1).findFirst();
+        return firstRepeatingElement.isPresent()? firstRepeatingElement.get().getKey(): -1;
     }
 
     public static void main(String[] args) {
